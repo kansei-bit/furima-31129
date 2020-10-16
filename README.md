@@ -1,24 +1,80 @@
-# README
+# テーブル設計
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## users テーブル
 
-Things you may want to cover:
+| Column   | Type   | Options     |
+| -------- | ------ | ----------- |
+| email    | string | null: false |
+| password | string | null: false |
+| password_confirmation | string | null: false |
+| nickname     | string | null: false |
+| fullname | string | null: false |
+| kananame | string | null: false |
+| birth_date | date | null: false |
 
-* Ruby version
+### Association
 
-* System dependencies
+- has_many :items
 
-* Configuration
+## items テーブル
 
-* Database creation
+| Column | Type   | Options     |
+| ------ | ------ | ----------- |
+| name   | string | null: false |
+| description   | text | null: false |
+| price   | integer | null: false |
+| category_id   | integer | null: false |
+| status_id   | integer | null: false |
+| delivery_charge_id   | integer | null: false |
+| prefecture_id   | integer | null: false |
+| shipping_date_id   | integer | null: false |
+| user   | references | null: false, foreign_key: true |
 
-* Database initialization
+### Association
 
-* How to run the test suite
+- belongs_to :user
+- has_one :order
 
-* Services (job queues, cache servers, search engines, etc.)
+## orders テーブル
 
-* Deployment instructions
+| Column  | Type       | Options                        |
+| ------- | ---------- | ------------------------------ |
+| item | references     | null: false, foreign_key: true |
+| creditcard    | references | null: false, foreign_key: true |
+| address    | references | null: false, foreign_key: true |
 
-* ...
+### Association
+
+- belongs_to :item
+-has_one :address
+-has_one :creditcard
+
+## creditcards テーブル
+
+| Column  | Type       | Options                        |
+| ------- | ---------- | ------------------------------ |
+| number | integer     | null: false |
+| expiration_month | integer     | null: false |
+| expiration_year | integer     | null: false |
+| security_code | integer     | null: false |
+| order    | references | null: false, foreign_key: true |
+
+### Association
+
+- belongs_to :order
+
+## addresses テーブル
+
+| Column  | Type       | Options                        |
+| ------- | ---------- | ------------------------------ |
+| zipcode | integer     | null: false |
+| prefecture_id | integer     | null: false |
+| city | string     | null: false |
+| town | string     | null: false |
+| apartment_number | string     | |
+| tel    | integer | null: false |
+| order    | references | null: false, foreign_key: true |
+
+### Association
+
+- belongs_to :order
