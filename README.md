@@ -8,13 +8,16 @@
 | password | string | null: false |
 | password_confirmation | string | null: false |
 | nickname     | string | null: false |
-| fullname | string | null: false |
-| kananame | string | null: false |
+| lname | string | null: false |
+| fname | string | null: false |
+| lname_katakana | string | null: false |
+| fname_katakana | string | null: false |
 | birth_date | date | null: false |
 
-### Association
+##l# Association
 
 - has_many :items
+- has_many :orders
 
 ## items テーブル
 
@@ -28,6 +31,7 @@
 | delivery_charge_id   | integer | null: false |
 | prefecture_id   | integer | null: false |
 | shipping_date_id   | integer | null: false |
+| sold_out   | boolean | default: false |
 | user   | references | null: false, foreign_key: true |
 
 ### Association
@@ -39,41 +43,25 @@
 
 | Column  | Type       | Options                        |
 | ------- | ---------- | ------------------------------ |
+| user | references     | null: false, foreign_key: true |
 | item | references     | null: false, foreign_key: true |
-| creditcard    | references | null: false, foreign_key: true |
-| address    | references | null: false, foreign_key: true |
 
 ### Association
 
 - belongs_to :item
--has_one :address
--has_one :creditcard
-
-## creditcards テーブル
-
-| Column  | Type       | Options                        |
-| ------- | ---------- | ------------------------------ |
-| number | integer     | null: false |
-| expiration_month | integer     | null: false |
-| expiration_year | integer     | null: false |
-| security_code | integer     | null: false |
-| order    | references | null: false, foreign_key: true |
-
-### Association
-
-- belongs_to :order
+- belongs_to :user
+- has_one :address
 
 ## addresses テーブル
 
 | Column  | Type       | Options                        |
 | ------- | ---------- | ------------------------------ |
-| zipcode | integer     | null: false |
+| zip_code | string     | null: false |
 | prefecture_id | integer     | null: false |
 | city | string     | null: false |
 | town | string     | null: false |
 | apartment_number | string     | |
-| tel    | integer | null: false |
-| order    | references | null: false, foreign_key: true |
+| tel    | string | null: false |
 
 ### Association
 
