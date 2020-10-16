@@ -31,7 +31,6 @@
 | delivery_charge_id   | integer | null: false |
 | prefecture_id   | integer | null: false |
 | shipping_date_id   | integer | null: false |
-| sold_out   | boolean | default: false |
 | user   | references | null: false, foreign_key: true |
 
 ### Association
@@ -62,6 +61,7 @@
 | town | string     | null: false |
 | apartment_number | string     | |
 | tel    | string | null: false |
+| order | references | null: false, foreign_key: true |
 
 ### Association
 
