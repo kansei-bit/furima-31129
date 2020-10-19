@@ -18,3 +18,4 @@ class User < ApplicationRecord
   end
   validates :birth_date, presence: true
 end
+
