@@ -79,7 +79,7 @@ RSpec.describe User, type: :model do
     end
 
     it 'passwordとpassword_confirmationの値が一致していなければ登録できない' do
-      @user.password_confirmation = Faker::Internet.password(min_length: 6)
+      @user.password_confirmation = "123abc"
       @user.valid?
       expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
     end
