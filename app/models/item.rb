@@ -1,5 +1,6 @@
 class Item < ApplicationRecord
   belongs_to :user
+  has_one_attached :image
 
   validates :name, :description, :price, null: false
   with_options numericality: { other_than: 1 } do
