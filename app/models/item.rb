@@ -8,11 +8,7 @@ class Item < ApplicationRecord
 
   validate :image_presence
   def image_presence
-    if image.attached?
-      if image.content_type.in?(%('image/jpeg image/png'))
-        errors.add(:image, 'extension shold be jpeg or png')
-      end
-    else
+    unless image.attached?
       errors.add(:image, 'must be exist')
     end
   end
