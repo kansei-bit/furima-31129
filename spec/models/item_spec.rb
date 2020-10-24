@@ -6,7 +6,7 @@ RSpec.describe Item, type: :model do
   end
   describe '商品出品機能' do
     context '出品がうまくいくとき' do
-      it 'nameとdescriptionとimageとpriceが存在し、category_idとstatus_idとdelivery_charge_idとprefecture_idとshipping_date_idのidが1以外で、ユーザーが紐づいていて、priceが300円以上9999999円以下なら登録できる' do
+      it 'nameとdescriptionとimageとpriceが存在し、category_idとstatus_idとdelivery_charge_idとprefecture_idとshipping_date_idのidが1以外で、ユーザーが紐づいていて、priceが300円以上9999999円以下の半角数字なら登録できる' do
         expect(@item).to be_valid
       end
     end
@@ -66,6 +66,11 @@ RSpec.describe Item, type: :model do
         @item.price = 10_000_000
         @item.valid?
         expect(@item.errors.full_messages).to include('Price must be less than or equal to 9999999')
+      end
+      it 'priceは半角数字のみ登録可能' do
+        @item.price = "１２３４"
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Price is not a number")
       end
       it 'ユーザーが紐づいていなければ登録できない' do
         @item.user = nil
