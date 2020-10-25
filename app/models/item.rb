@@ -8,9 +8,7 @@ class Item < ApplicationRecord
 
   validate :image_presence
   def image_presence
-    unless image.attached?
-      errors.add(:image, 'must be exist')
-    end
+    errors.add(:image, 'must be exist') unless image.attached?
   end
   # only_halfwidth_num = /\A[1-9][0-9]+\z/
   validates :price,
