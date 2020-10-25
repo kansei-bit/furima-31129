@@ -1,6 +1,7 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   before_action :get_the_item, only: [:show, :edit, :update]
+  before_action :allow_only_owner, only: :edit
 
   def index
     @items = Item.order('created_at DESC')
@@ -23,9 +24,6 @@ class ItemsController < ApplicationController
   end
 
   def edit
-    if current_user != @item.user
-      redirect_to root_path
-    end
   end
 
   def update
@@ -43,5 +41,10 @@ class ItemsController < ApplicationController
   end
   def get_the_item
     @item = Item.find(params[:id])
+  end
+  def allow_only_owner
+    if current_user != @item.user
+      redirect_to root_path
+    end
   end
 end
