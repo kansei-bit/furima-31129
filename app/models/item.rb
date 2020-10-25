@@ -4,13 +4,13 @@ class Item < ApplicationRecord
   extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to_active_hash :category
   belongs_to_active_hash :status
+  belongs_to_active_hash :delivery_charge
   belongs_to_active_hash :prefecture
+  belongs_to_active_hash :shipping_date
 
   validate :image_presence
   def image_presence
-    unless image.attached?
-      errors.add(:image, 'must be exist')
-    end
+    errors.add(:image, 'must be exist') unless image.attached?
   end
   # only_halfwidth_num = /\A[1-9][0-9]+\z/
   validates :price,
