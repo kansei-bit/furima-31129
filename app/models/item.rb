@@ -7,6 +7,7 @@ class Item < ApplicationRecord
   belongs_to_active_hash :delivery_charge
   belongs_to_active_hash :prefecture
   belongs_to_active_hash :shipping_date
+  has_one :order
 
   validate :image_presence
   def image_presence
