@@ -2,26 +2,22 @@ class OrdersController < ApplicationController
   before_action :authenticate_user!
   def index
     @item = Item.find(params[:item_id])
-    unless @item.order.blank?
-      redirect_to root_path
-    end
-    if @item.user_id == current_user.id
-      redirect_to root_path
-    end
+    redirect_to root_path unless @item.order.blank?
+    redirect_to root_path if @item.user_id == current_user.id
   end
 
   def create
     @item = Item.find(params[:item_id])
     @purchase = Purchase.new(purchase_params)
     if @purchase.valid?
-      Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
+      Payjp.api_key = ENV['PAYJP_SECRET_KEY']
       Payjp::Charge.create(
         amount: @item.price,
         card: purchase_params[:token],
         currency: 'jpy'
       )
       @purchase.save
-      return redirect_to root_path
+      redirect_to root_path
     else
       render action: :index
     end

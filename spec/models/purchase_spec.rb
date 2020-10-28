@@ -25,7 +25,7 @@ RSpec.describe Purchase, type: :model do
       expect(@purchase.errors.full_messages).to include("Item can't be blank")
     end
 
-    it 'zip_codeが空では保存ができないこと'  do
+    it 'zip_codeが空では保存ができないこと' do
       @purchase.zip_code = nil
       @purchase.valid?
       expect(@purchase.errors.full_messages).to include("Zip code can't be blank")
@@ -34,10 +34,10 @@ RSpec.describe Purchase, type: :model do
     it 'zip_codeが半角のハイフンを含んだ正しい形式でないと保存できないこと' do
       @purchase.zip_code = '1234567'
       @purchase.valid?
-      expect(@purchase.errors.full_messages).to include("Zip code is invalid. Include hyphen(-)")
+      expect(@purchase.errors.full_messages).to include('Zip code is invalid. Include hyphen(-)')
     end
 
-     it 'prefecture_idが1だと保存ができないこと' do
+    it 'prefecture_idが1だと保存ができないこと' do
       @purchase.prefecture_id = 1
       @purchase.valid?
       expect(@purchase.errors.full_messages).to include("Prefecture can't be blank")
@@ -67,9 +67,9 @@ RSpec.describe Purchase, type: :model do
     end
 
     it 'telがハイフンを含まない11桁以内の半角の数字でないと保存ができないこと' do
-      @purchase.tel = "000-111-2222"
+      @purchase.tel = '000-111-2222'
       @purchase.valid?
-      expect(@purchase.errors.full_messages).to include("Tel is invalid")
+      expect(@purchase.errors.full_messages).to include('Tel is invalid')
     end
 
     it 'tokenが空では決済ができないこと' do
@@ -77,6 +77,5 @@ RSpec.describe Purchase, type: :model do
       @purchase.valid?
       expect(@purchase.errors.full_messages).to include("Token can't be blank")
     end
-
   end
 end
