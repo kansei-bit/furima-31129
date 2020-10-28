@@ -13,6 +13,11 @@ RSpec.describe Purchase, type: :model do
       expect(@purchase).to be_valid
     end
 
+    it 'apartment_numberは空でも保存ができること' do
+      @purchase.apartment_number = nil
+      expect(@purchase).to be_valid
+    end
+
     it 'userが紐づいていないと保存ができないこと' do
       @purchase.user_id = nil
       @purchase.valid?
@@ -53,11 +58,6 @@ RSpec.describe Purchase, type: :model do
       @purchase.town = nil
       @purchase.valid?
       expect(@purchase.errors.full_messages).to include("Town can't be blank")
-    end
-
-    it 'apartment_numberは空でも保存ができること' do
-      @purchase.apartment_number = nil
-      expect(@purchase).to be_valid
     end
 
     it 'telが空だと保存ができないこと' do
