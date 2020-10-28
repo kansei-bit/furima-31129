@@ -1,8 +1,4 @@
 FactoryBot.define do
-  before do
-    @user = FactoryBot.create(:user)
-    @item = FactoryBot.create(:item)
-  end
   factory :purchase do
     zip_code { '123-4567' }
     prefecture_id { 3 }
