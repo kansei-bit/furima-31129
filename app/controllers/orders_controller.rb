@@ -2,8 +2,8 @@ class OrdersController < ApplicationController
   before_action :authenticate_user!
   def index
     @item = Item.find(params[:item_id])
-    redirect_to root_path unless @item.order.blank?
-    redirect_to root_path if @item.user_id == current_user.id
+    return redirect_to root_path unless @item.order.blank?
+    return redirect_to root_path if @item.user_id == current_user.id
   end
 
   def create
